@@ -268,18 +268,31 @@ export class WhatsAppController{
         this.el.inputDocument.on('change', e=>{
 
             if(this.el.inputDocument.files.length){
+
+                this.el.panelDocumentPreview.css({
+                    height:'1%'
+                });
+
                 let file = this.el.inputDocument.files[0];
                 
                 this._documentPreviewController = new DocumentPreviewController(file);
                 
                 this._documentPreviewController.getPreviewData().then(result=>{
-
+                    
                     this.el.imgPanelDocumentPreview.src = result.src;
                     this.el.infoPanelDocumentPreview.innerHTML = result.info;
                     this.el.imagePanelDocumentPreview.show();
                     this.el.filePanelDocumentPreview.hide();
+
+                    this.el.panelDocumentPreview.css({
+                        height:'100%'
+                    });
                 
                 }).catch(err=>{
+                    
+                    this.el.panelDocumentPreview.css({
+                        height:'100%'
+                    });
 
                     switch(file.type){
                         case 'application/vnd.ms-excel':
